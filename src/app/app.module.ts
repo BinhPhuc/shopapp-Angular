@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,11 +13,12 @@ import { HomeComponent } from './home/home.component';
   ],
   imports: [
     BrowserModule,
+    NgbModule,
     AppRoutingModule
   ],
   providers: [
     provideClientHydration()
   ],
-  bootstrap: [AppComponent, HomeComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
