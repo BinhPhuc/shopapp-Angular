@@ -1,0 +1,100 @@
+.container {
+    color: white;
+    margin-bottom: 15px;
+    height: 100vh;
+}
+.login-form {
+    background-color: rgb(12, 12, 55);
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 500px;
+    border: 1px solid rgb(32, 34, 60);
+    margin-top: 10px;
+}
+.login-header {
+    color: rgb(105, 244, 181);
+    margin-bottom: 20px;
+}
+.form-control {
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+.form-control:focus {
+    background-color: transparent;
+    border-color: transparent;
+    outline: none;
+    color: white;
+}
+.form-control::placeholder {
+    color: #fff;
+    opacity: 0.4;
+}
+.divider-nospace {
+    border-top: 1px solid #fff;
+}
+.password-field {
+    position: relative;
+}
+.password-toogle {
+    position: absolute;
+    right: 10px;
+    top: 35%;
+    // transform: translateY(-50%);
+    padding: 15px 20px;
+    color: rgb(105, 244, 181);
+    cursor: pointer;
+}
+.checkbox-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    color: rgb(243, 165, 42);
+}
+.checkbox-text input[type="checkbox"]:checked {
+    border-color: white;
+    background-color: rgb(233, 66, 178);
+}
+.form-check-input {
+    margin-right: 5px;
+}
+.forgot-password-link {
+    text-decoration: none;
+    color: rgb(105, 244, 181)
+}
+.register-link {
+    text-decoration: none;
+    color: rgb(105, 244, 181)
+}
+.access-right {
+    margin-top: 20px;
+    width: 160px;
+    color: white;
+    border: 1px solid rgb(255, 64, 180);
+}
+.access-right:focus  {
+    border: 1px solid rgb(255, 64, 180);
+}
+.btn-login {
+    width: 100%;
+    border-radius: 30px;
+    padding: 5px 0;
+    background-color: #E9A8F2;
+    color: white;
+    margin-top: 20px;
+    border: none;
+    transition: all 0.2s ease-in-out;
+}
+.btn-login:hover {
+    background-color: #7FC7D9;
+    color: white
+}
+.divider {
+    margin-top: 20px;
+    border-top: 1px solid #fff;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.8;
+}
