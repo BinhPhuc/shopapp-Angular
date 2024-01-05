@@ -1,7 +1,7 @@
 .container {
     color: white;
     margin-bottom: 15px;
-    height: 100vh;
+    // height: 100vh;
 }
 .login-form {
     background-color: rgb(12, 12, 55);
@@ -25,6 +25,7 @@
     border-color: transparent;
     outline: none;
     color: white;
+    box-shadow: none;
 }
 .form-control::placeholder {
     color: #fff;
