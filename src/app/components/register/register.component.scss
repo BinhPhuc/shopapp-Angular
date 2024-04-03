@@ -37,7 +37,6 @@
     outline: none;
     box-shadow: none;
     border-color: transparent;
-    // padding-left: 0;
 }
 
 .password-field {
@@ -46,10 +45,12 @@
 
 .password-toggle {
     position: absolute;
-    top: 50%;
+    top: 45px;
     right: 10px;
     transform: translateY(-50%);
     color: rgb(105, 244, 181);
+    width: 20px;
+    height: auto;
     cursor: pointer;
 }
 
@@ -89,7 +90,6 @@
 .divider {
     height: 1px;
     background-color: rgb(243, 165, 42);
-    /*      background-color: rgb(105, 244, 181)*/
     margin: 20px;
 }
 

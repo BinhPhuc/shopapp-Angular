@@ -1,0 +1,90 @@
+<app-header></app-header>
+<div class="container">
+    <form #loginForm="ngForm" action="" method="">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="login-form mx-auto">
+                    <h2 class="login-header text-center">Đăng nhập</h2>
+
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input
+                            type="text"
+                            class="form-control" 
+                            required
+                            id="phone" 
+                            [(ngModel)]="phone"
+                            name="phone"
+                            placeholder="Enter your phone number"
+                        >
+                        <div class="divider-nospace"></div>
+                    </div>
+
+                    <div class="mt-5 form-group password-field">
+                        <label for="password">Password</label>
+                        <input 
+                            [type]="visiblePassword ? 'text' : 'password'"
+                            class="form-control"
+                            required
+                            [(ngModel)]="password"
+                            name="password"
+                            id="password" 
+                            placeholder="Password"
+                        >
+                        <i 
+                            class="password-toogle"
+                            [ngClass]="visiblePassword ? 'fa fa-eye' : 'fa fa-eye-slash'"
+                            (click)="onChangePasswordVisibility()"
+                            *ngIf="password.length > 0"
+                        >
+
+                        </i>
+                        <div class="divider-nospace"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check checkbox-text">
+                            <span style="display: flex;">
+                                <input 
+                                    type="checkbox" 
+                                    class="form-check-input" 
+                                    name="rememberMe"
+                                    [(ngModel)]="rememberMe"
+                                    id="remember"
+                                >
+                                <label 
+                                    for="remember" 
+                                    class="form-check-label text-start"
+                                    required
+                                >
+                                    Ghi nhớ mật khẩu
+                                </label>
+                            </span>
+                            <a href="" class="forgot-password-link">Quên mật khẩu</a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <select [(ngModel)]="selectedRole" name="selectedRole" id="" class="form-control access-right">
+                        
+                            <option selected disabled>Quyền đăng nhập</option>
+                            <option
+                               *ngFor="let role of roles"
+                               [ngValue]="role"
+                            >
+                                {{role.name}}
+                            </option>
+                        </select>
+                        <button class="btn-login"
+                            (click)="onLogin()"
+                        >
+                        Đăng nhập</button>
+                        <div class="divider"></div>
+                        <p class="text-center mt-3">Bạn chưa đăng ký?
+                            <a href="" class="register-link">Tạo tài khoản mới</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<app-footer></app-footer>

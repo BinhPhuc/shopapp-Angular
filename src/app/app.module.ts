@@ -4,14 +4,22 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
-import { OrderComponent } from './order/order.component';
-import { OrderConfirmComponent } from './order-confirm/order-confirm.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { DetailProductComponent } from './detail-product/detail-product.component';
+import { HomeComponent } from './components/home/home.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
+import { OrderComponent } from './components/order/order.component';
+import { OrderConfirmComponent } from './components/order-confirm/order-confirm.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { DetailProductComponent } from './components/detail-product/detail-product.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+//pagination    
+import {NgxPaginationModule} from 'ngx-pagination';
+
+//interceptor
+import { TokenInterceptor } from './interceptor/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -28,10 +36,18 @@ import { DetailProductComponent } from './detail-product/detail-product.componen
   imports: [
     BrowserModule,
     NgbModule,
+    FormsModule,
+    HttpClientModule,
+    NgxPaginationModule,
     AppRoutingModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    {
+        provide: HTTP_INTERCEPTORS,
+        useClass: TokenInterceptor,
+        multi: true
+    }
   ],
   bootstrap: [
     AppComponent,
