@@ -11,7 +11,6 @@ export class TokenService {
     localStorage?: Storage;
     constructor(@Inject(DOCUMENT) private document: Document) {
         this.localStorage = this.document.defaultView?.localStorage;
-
     }
     getToken(): string {
         return this.localStorage?.getItem(this.TOKEN_KEY) ?? "nuh uh";

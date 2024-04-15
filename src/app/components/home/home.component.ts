@@ -1,67 +1,79 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product';
+import { Categorty } from '../../models/category';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
     public currentPage: number;
     private itemsPerPage: number;
     public products: Product[];
-    private pages: number[]
     public totalPages: number;
-    private visiblePages: number[];
-    constructor(private productService: ProductService){
+    public keyword: string;
+    public categories: Categorty[];
+    public selectedCategoryId: number;
+    constructor(
+        private productService: ProductService,
+        private categoryService: CategoryService
+    ){
         this.currentPage = 1;
         this.itemsPerPage = 10;
         this.products = [];
-        this.pages = [];
         this.totalPages = 0;
-        this.visiblePages = [];
+        this.keyword = "";
+        this.categories = [];
+        this.selectedCategoryId = 0;
     }
     ngOnInit() {
-        debugger
+        // debugger
         console.log("home component initialized");
-        this.loadProducts(this.currentPage, this.itemsPerPage);
+        this.categoryService.getCategories().subscribe({
+            next: (response: any) => {
+                this.categories = response;
+            },
+            complete() {
+                console.log("nuh uh, complete");
+            },
+            error(err) {
+                console.error("nuh uh", err);
+            },
+        })
+        this.loadProducts(this.keyword, this.selectedCategoryId ,this.currentPage, this.itemsPerPage);
     }
-    loadProducts (page: number, limit: number) {
-        debugger
-        this.productService.getProducts(page, limit)
+    searchProducts() {
+        this.currentPage = 1;
+        this.itemsPerPage = 10;
+        this.loadProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
+    }
+    loadProducts (keyword: string, categoryId: number,page: number, limit: number) {
+        // debugger
+        this.productService.getProducts(keyword, categoryId, page, limit)
         .subscribe({
             next: (response: any) => {
-                debugger
                 response.products.forEach((product: Product) => {
+                    if(product.thumbnail == null) {
+                        product.thumbnail = "404_not_found.png";
+                    }
                     product.url = `http://localhost:8088/api/v1/products/images/${product.thumbnail}`;
                 });
                 this.products = response.products; 
                 this.totalPages = response.totalPages;
             },
             complete() {
-                debugger
                 console.log("nuh uh, complete");
             },
             error(err) {
-                debugger
                 console.error("nuh uh", err);
             },
         })
     }
-    nextPage() {
-        if(this.currentPage < this.totalPages) {
-            this.currentPage++;
-            this.loadProducts(this.currentPage, this.itemsPerPage);
-        }
-    }
-    prevPage() {
-        if(this.currentPage > 1) {
-            this.currentPage--;
-            this.loadProducts(this.currentPage, this.itemsPerPage);
-        }
-    }
     pageChanged(event: any) {
         this.currentPage = event;
+        this.loadProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
     }
 }

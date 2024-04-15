@@ -6,13 +6,21 @@
         <p>chọn xem sản phẩm và mua hàng tại đây</p>
     </div>
     <div class="search-box">
-        <input type="text" class="form-control search-input" placeholder="Tìm sản phẩm">
-        <select class="form-control product-category">
-            <option value="" selected disabled>Danh mục sản phẩm</option>
-            <option value="">Đồ điện tử</option>
-            <option value="">Hải sản</option>
-            <option value="">Bánh kẹo</option>
+        <input 
+            type="text" 
+            class="form-control search-input" 
+            placeholder="Tìm sản phẩm"
+            [(ngModel)]="keyword"
+        >
+        <select class="form-control product-category"
+            [(ngModel)]="selectedCategoryId"
+        >
+            <option [value]="0">Tất cả</option>
+            <option *ngFor="let category of categories" [value]="category.id">
+                {{category.name}}
+            </option>
         </select>
+        <button class="btn btn-primary ml-2" (click)="searchProducts()">Tìm kiếm</button>
     </div>
     <div class="row">
             <div class="col-lg-4 col-md-6" *ngFor="let product of products | paginate : {
@@ -28,7 +36,7 @@
                     >
                     <h3 class="product-name">{{product.name}}</h3>
                     <p class="product-description">{{product.description}}</p>
-                    <p class="product-price">{{product.price}}</p>
+                    <p class="product-price">${{product.price}}</p>
                     <div class="product-rating">
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
@@ -42,10 +50,12 @@
                     </div>
                 </div>
             </div>
+            <pagination-controls
+                (pageChange)="pageChanged($event)"
+                previousLabel=""
+		        nextLabel=""
+            >
+            </pagination-controls>
     </div>
-    <pagination-controls
-      (pageChange)="pageChanged($event)"
-    >
-    </pagination-controls>
 </div>
 <app-footer></app-footer>

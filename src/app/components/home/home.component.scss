@@ -13,6 +13,7 @@
 
 .product-category {
     width: 200px;
+    margin-right: 10px
 }
 
 .search-input {
@@ -88,8 +89,47 @@
     margin-top: 20px;
 }
 
-.pagination {
+.pagination-controls {
     display: flex;
+    text-align: center;
     justify-content: center;
-    align-items: center;
+    color: white;
+}
+
+::ng-deep {
+    .ngx-pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }   
+    .ngx-pagination .pagination-previous.disabled::before {
+        display: none !important;
+    }
+    .ngx-pagination .pagination-next.disabled::after {
+        display: none !important;
+    }
+    .ngx-pagination .small-screen {
+        display: none !important;
+    }
+    .ngx-pagination li {
+        color: white;
+        border-radius: 50% !important;
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+        width: 30px;
+        margin-left: 3px;
+        transition: 0.1 ease !important;
+    }
+    .ngx-pagination a:hover, .ngx-pagination button:hover{
+        background: initial !important;
+        scale: 1.1 !important;
+    }
+}
+
+select.form-control {
+    background-color: rgb(19, 23, 42);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.5);
 }

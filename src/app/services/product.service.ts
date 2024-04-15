@@ -11,8 +11,14 @@ import { map } from 'rxjs/operators';
 export class ProductService {
     private apiProducts = 'http://localhost:8088/api/v1/products'
     constructor(private http: HttpClient) {}
-    getProducts(page: number, limit: number): Observable<any> {
-        debugger
-        return this.http.get<any[]>(`${this.apiProducts}?page=${page}&limit=${limit}`);
+    getProducts(keyword: string, categoryId: number, page: number, limit: number): Observable<any> {
+        //debugger
+        return this.http.get<any[]>(`${this.apiProducts}?keyword=${keyword}&categoryId=${categoryId}&page=${page}&limit=${limit}`);
+    }
+    getProductById(id: number): Observable<any> {
+        return this.http.get<any[]>(`${this.apiProducts}/${id}`);
+    }
+    getImagesByProductId(productId: number): Observable<any> {
+        return this.http.get<any[]>(`${this.apiProducts}/view/images/${productId}`);
     }
 }

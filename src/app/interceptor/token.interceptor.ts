@@ -11,7 +11,7 @@ export class TokenInterceptor implements HttpInterceptor {
     constructor(private tokenService: TokenService, @Inject(PLATFORM_ID) platformId: Object) {}
     
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        debugger
+
         // Lấy token từ lưu trữ (ví dụ: localStorage hoặc session storage)
         const token = this.tokenService.getToken();
 

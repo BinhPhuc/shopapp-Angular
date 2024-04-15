@@ -8,57 +8,40 @@
         <div class="col-md-6">
             <div id="carouselExample" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="square-image">
-                            <img src="https://images.pexels.com/photos/4050426/pexels-photo-4050426.jpeg"
-                                class="product-image" alt="Product image">
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="square-image">
-                            <img src="https://images.pexels.com/photos/4050426/pexels-photo-4050426.jpeg"
+                    <div     
+                        *ngFor="let image of productImages; let i = index"
+                        class="carousel-item"
+                        [ngClass]="{'active': i === currentImageIndex}"
+                    >
+                        <div class="square-image"
+                        >
+                            <img 
+                                [src]="image.image_url"
                                 class="product-image" alt="Product image">
                         </div>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev"
+                    (click)="prevImage()"
+                >
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
+                    <span class="sr-only" >Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next"
+                    (click)="nextImage()"
+                >
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </button>
             </div>
             <div class="row">
                 <div class="thumbnail-container">
-                    <div class="thumbnail-item active">
+                    <div class="thumbnail-item" *ngFor="let image of productImages; let i = index"
+                        [ngClass]="{'active': i === currentImageIndex}"
+                        (click)="thumbnailClicked(i)"
+                    >
                         <img 
-                            src="https://images.pexels.com/photos/4050426/pexels-photo-4050426.jpeg" 
-                            class="thumbnail-image"
-                            alt="Thumbnail Image">
-                    </div>
-                    <div class="thumbnail-item">
-                        <img 
-                            src="https://images.pexels.com/photos/4050426/pexels-photo-4050426.jpeg" 
-                            class="thumbnail-image"
-                            alt="Thumbnail Image">
-                    </div>
-                    <div class="thumbnail-item">
-                        <img 
-                            src="https://images.pexels.com/photos/4050426/pexels-photo-4050426.jpeg" 
-                            class="thumbnail-image"
-                            alt="Thumbnail Image">
-                    </div>
-                    <div class="thumbnail-item">
-                        <img 
-                            src="https://images.pexels.com/photos/4050426/pexels-photo-4050426.jpeg" 
-                            class="thumbnail-image"
-                            alt="Thumbnail Image">
-                    </div>
-                    <div class="thumbnail-item">
-                        <img 
-                            src="https://images.pexels.com/photos/4050426/pexels-photo-4050426.jpeg" 
+                            [src]="image.image_url"
                             class="thumbnail-image"
                             alt="Thumbnail Image">
                     </div>
@@ -67,18 +50,23 @@
         </div>
         <div class="col-md-6">
             <div class="product-details">
-                <h2>Thông tin chi tiết sản phẩm</h2>
-                <p>Mô tả sản phẩm</p>
-                <p>Giá: $99</p>
+                <h2>{{product.name}}</h2>
+                <p>{{product.description}}</p>
+                <p>Giá: ${{product.price}}</p>
                 <div class="product-actions">
-                    <button class="btn btn-primary">Thêm vào giỏ hàng</button>
-                    <button class="btn btn-success">Mua ngay</button>
+                    <button class="btn btn-primary" (click)="artToCart()">Thêm vào giỏ hàng</button>
+                    <button class="btn btn-success" (click)="buyNow()">Mua ngay</button>
                 </div>
                 <div class="product-quantity">
                     <div class="border-wrapper">
-                        <button>-</button>
-                        <input type="text" value="1">
-                        <button>+</button>
+                        <button (click)="decreasing()" >-</button>
+                        <input type="text" 
+                            required=""
+                            [(ngModel)]="numberOfProduct"
+                            name="numberOfProduct"
+                            (keypress)="preventNonNumber($event)"
+                        >
+                        <button (click)="increasing()">+</button>
                     </div>
                 </div>
             </div>
