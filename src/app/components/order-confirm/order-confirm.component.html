@@ -14,39 +14,25 @@
                     <th scope="col">Tổng giá</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody *ngFor="let cartItem of cartItems; let i = index">
                 <tr>
                     <td>
                         <div class="product-info">
                             <img
-                                src="https://images.pexels.com/photos/4050426/pexels-photo-4050426.jpeg"
+                                [src]="cartItem.thumbnail"
                                 alt=""
                                 class="product-img"
                                 >
-                            <span class="product-name">Product 1</span>
+                            <span class="product-name"> {{cartItem.name}} </span>
                         </div>
                     </td>
-                    <td>2</td>
-                    <td>100,000 đ</td>
-                    <td>200,000 đ</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="product-info">
-                            <img
-                                src="https://images.pexels.com/photos/4050426/pexels-photo-4050426.jpeg"
-                                alt=""
-                                class="product-img"
-                                >
-                            <span class="product-name">Product 1</span>
-                        </div>
-                    </td>
-                    <td>2</td>
-                    <td>100,000 đ</td>
-                    <td>200,000 đ</td>
+                    <td>{{cartItem.quantity}}</td>
+                    <td>${{cartItem.price}}</td>
+                    <td>${{cartItem.total}}</td>
                 </tr>
             </tbody>
         </table>
+        <span class="mt-3">Tổng thanh toán ({{totalItems}} sản phẩm): ${{totalPrice}} </span>
         <div class="text-center mt-3">
             <button class="btn btn-gradient">Tiếp tục mua sắm</button>
         </div>

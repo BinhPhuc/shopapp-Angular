@@ -3,6 +3,7 @@ import { Product } from '../../models/product';
 import { ProductService } from '../../services/product.service';
 import { ProductImage } from '../../models/product.image';
 import { CartService } from '../../services/cart.service';
+import { rename } from 'node:fs';
 
 @Component({
   selector: 'app-detail-product',
@@ -20,15 +21,6 @@ export class DetailProductComponent implements OnInit {
         private productService: ProductService,
         private cartService: CartService
     ) {
-        this.product = {
-            id: 1,
-            name: '123',
-            price: 123,
-            thumbnail: '123',
-            description: '123',
-            category_id: 1,
-            url: '123'
-        };
         this.productImages = [];
         this.productId = 0;
         this.currentImageIndex = 0;
@@ -36,11 +28,24 @@ export class DetailProductComponent implements OnInit {
         this.totalImage = 0;
     }
     ngOnInit() {
-        const product_id = 6;
+        const product_id = 8;
         this.productId = product_id;
         this.productService.getProductById(product_id).subscribe({
             next: (response: any) => {
-                this.product = response;
+                debugger;
+                if(response) {
+                    this.product = {
+                        id: response.id || 0,
+                        name: response.name || "",
+                        price: response.price,
+                        thumbnail: response.thumbnail,
+                        description: response.description,
+                        category_id: response.category_id,
+                        quantity: 0,
+                        url: response.url || "",
+                    };
+                }
+                console.log(this.product);
             },
             complete() {
                 console.log(`nuh uh complete`);
@@ -104,8 +109,9 @@ export class DetailProductComponent implements OnInit {
         console.log("next")
     }
     artToCart() {
-        // debugger
+        debugger
         this.cartService.artToCart(this.productId, this.numberOfProduct);
+        console.log("add to cart");
     }
     buyNow() {
 

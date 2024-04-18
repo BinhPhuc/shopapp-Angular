@@ -9,7 +9,8 @@ import { map } from 'rxjs/operators';
 })
 
 export class ProductService {
-    private apiProducts = 'http://localhost:8088/api/v1/products'
+    private apiProducts = 'http://localhost:8088/api/v1/products';
+    private idsString: string = "";
     constructor(private http: HttpClient) {}
     getProducts(keyword: string, categoryId: number, page: number, limit: number): Observable<any> {
         //debugger
@@ -20,5 +21,11 @@ export class ProductService {
     }
     getImagesByProductId(productId: number): Observable<any> {
         return this.http.get<any[]>(`${this.apiProducts}/view/images/${productId}`);
+    }
+    getAllProductsByIds(Ids: number[]) {
+        for(let i = 0; i < Ids.length; i++) {
+            this.idsString += "ids=" + Ids[i] + "&";
+        }
+        return this.http.get<any[]>(`${this.apiProducts}/by-ids?${this.idsString}`);
     }
 }
