@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="container">
-    <form #loginForm="ngForm" action="" method="">
+    <form [formGroup]="loginForm">
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="login-form mx-auto">
@@ -13,7 +13,7 @@
                             class="form-control" 
                             required
                             id="phone" 
-                            [(ngModel)]="phone"
+                            formControlName="phone"
                             name="phone"
                             placeholder="Enter your phone number"
                         >
@@ -26,7 +26,7 @@
                             [type]="visiblePassword ? 'text' : 'password'"
                             class="form-control"
                             required
-                            [(ngModel)]="password"
+                            formControlName="password"
                             name="password"
                             id="password" 
                             placeholder="Password"
@@ -35,9 +35,7 @@
                             class="password-toogle"
                             [ngClass]="visiblePassword ? 'fa fa-eye' : 'fa fa-eye-slash'"
                             (click)="onChangePasswordVisibility()"
-                            *ngIf="password.length > 0"
-                        >
-
+                            *ngIf="loginForm.get('password')?.value.length > 0">
                         </i>
                         <div class="divider-nospace"></div>
                     </div>
@@ -48,7 +46,7 @@
                                     type="checkbox" 
                                     class="form-check-input" 
                                     name="rememberMe"
-                                    [(ngModel)]="rememberMe"
+                                    formControlName="rememberMe"
                                     id="remember"
                                 >
                                 <label 
@@ -63,7 +61,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <select [(ngModel)]="selectedRole" name="selectedRole" id="" class="form-control access-right">
+                        <select formControlName="selectedRole" name="selectedRole" id="" class="form-control access-right">
                         
                             <option selected disabled>Quyền đăng nhập</option>
                             <option

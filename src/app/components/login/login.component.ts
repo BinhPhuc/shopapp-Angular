@@ -7,7 +7,7 @@ import { LoginResponse } from '../../responses/users/login.response';
 import { TokenService } from '../../services/token.service';
 import { RoleService } from '../../services/role.service';
 import { Role } from '../../models/role';
-import { debug } from 'console';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -15,34 +15,43 @@ import { debug } from 'console';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-    @ViewChild('loginForm') loginForm: any;
-    phone: string;
-    password: string;
-    visiblePassword: boolean;
-    rememberMe: boolean;
-    roles: Role[];
-    selectedRole: Role | undefined;
+    public loginForm: FormGroup;
+    public phone: string;
+    public password: string;
+    public visiblePassword: boolean;
+    public rememberMe: boolean;
+    public roles: Role[];
+    // public selectedRole: Role | undefined;
     constructor(
         private router: Router,
         private userService: UserService,
         private tokenService: TokenService,
-        private roleService: RoleService
+        private roleService: RoleService,
+        private formBuilder: FormBuilder
     ) {
-        this.phone = '0866194010';
-        this.password = 'binh2006';
         this.visiblePassword = false;
-        this.rememberMe = true;
         this.roles = [];
+        // init reactive form
+        this.loginForm = this.formBuilder.group({
+            phone: ['', Validators.required],
+            password: ['', Validators.required],
+            rememberMe: ['true'],
+            selectedRole: ['', Validators.required]
+        })
     }
 
     ngOnInit() {
         // debugger
         this.roleService.getRoles()
         .subscribe({
-            next: (roles: Role[]) => {
-                // debugger
-                this.roles = roles;
-                this.selectedRole = roles.length > 0 ? roles[0] : undefined;
+            next: (response: any) => {
+                this.roles = response.map((role: any) => {
+                    return {
+                        id: role.id,
+                        name: role.name
+                    }
+                });
+                this.loginForm.get('selectedRole')?.setValue(this.roles[0]);
             },
             complete() {
                 console.log('Get roles completed')
@@ -54,10 +63,11 @@ export class LoginComponent {
     }
     
     onLogin() {
+        debugger
         const loginData: LoginDTO = {
-            'phone_number': this.phone,
-            'password': this.password,
-            'role_id': this.selectedRole?.id ?? 0
+            'phone_number': this.loginForm.get('phone')?.value,
+            'password': this.loginForm.get('password')?.value,
+            'role_id': this.loginForm.get('selectedRole')?.value.id
         };
         this.userService.login(loginData)
         .subscribe({
