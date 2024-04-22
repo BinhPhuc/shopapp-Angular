@@ -12,4 +12,7 @@ export class CategoryService {
     getCategories(): Observable<any> {
         return this.http.get<any[]>(`${this.apiCategories}`);
     }
+    getCategoryById(categoryId: number): Observable<any >{
+        return this.http.get<any[]>(`${this.apiCategories}/${categoryId}`);
+    }
 }

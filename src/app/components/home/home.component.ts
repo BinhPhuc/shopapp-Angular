@@ -3,6 +3,7 @@ import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product';
 import { Categorty } from '../../models/category';
 import { CategoryService } from '../../services/category.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -17,9 +18,11 @@ export class HomeComponent implements OnInit {
     public keyword: string;
     public categories: Categorty[];
     public selectedCategoryId: number;
+    private categoryMap: Map<number, string> = new Map();
     constructor(
         private productService: ProductService,
-        private categoryService: CategoryService
+        private categoryService: CategoryService,
+        private router: Router
     ){
         this.currentPage = 1;
         this.itemsPerPage = 10;
@@ -34,7 +37,13 @@ export class HomeComponent implements OnInit {
         console.log("home component initialized");
         this.categoryService.getCategories().subscribe({
             next: (response: any) => {
-                this.categories = response;
+                this.categories = response.map((item: any) => {
+                    this.categoryMap.set(item.id, item.name);
+                    return {
+                        id: item.id,
+                        name: item.name
+                    }
+                });
             },
             complete() {
                 console.log("nuh uh, complete");
@@ -55,13 +64,16 @@ export class HomeComponent implements OnInit {
         this.productService.getProducts(keyword, categoryId, page, limit)
         .subscribe({
             next: (response: any) => {
-                response.products.forEach((product: Product) => {
-                    if(product.thumbnail == null) {
-                        product.thumbnail = "404_not_found.png";
+                this.products = response.products.map((item: any) => {
+                    return {
+                        name: item.name,
+                        price: item.price,
+                        thumbnail: item.thumbnail == null ? "404_not_found.png" : item.thumbnail,
+                        description: item.description,
+                        category_id: item.category_id,
+                        url: `http://localhost:8088/api/v1/products/images/${item.thumbnail}`
                     }
-                    product.url = `http://localhost:8088/api/v1/products/images/${product.thumbnail}`;
-                });
-                this.products = response.products; 
+                })
                 this.totalPages = response.totalPages;
             },
             complete() {
@@ -75,5 +87,9 @@ export class HomeComponent implements OnInit {
     pageChanged(event: any) {
         this.currentPage = event;
         this.loadProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
+    }
+    productClick(productName: string, productCategoryId: number) {
+        const categoryName = this.categoryMap.get(productCategoryId);
+        this.router.navigate(['/product', categoryName, productName]);
     }
 }

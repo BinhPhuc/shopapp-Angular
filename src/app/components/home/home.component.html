@@ -28,7 +28,7 @@
                 currentPage: currentPage,
                 totalItems: totalPages
             }">
-                <div class="product-item">
+                <div class="product-item" (click)="productClick(product.name, product.category_id)" >
                     <img 
                         [src]="product.url" 
                         alt="product image"

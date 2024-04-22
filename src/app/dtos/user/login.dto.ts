@@ -3,7 +3,6 @@ import {
     IsString,
     IsNumber,
     IsPhoneNumber,
-    IsDate 
 } from 'class-validator';
 
 export class LoginDTO {

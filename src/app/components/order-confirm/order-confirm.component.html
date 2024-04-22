@@ -5,34 +5,63 @@
         <p>Cảm ơn bạn đã đặt hàng dưới đây là thông tin về đơn hàng của bạn</p>
     </div>
     <div class="row">
-        <table>
-            <thead>
-                <tr>
-                    <th scope="col text-start">Sản phẩm</th>
-                    <th scope="col">Số lượng</th>
-                    <th scope="col">Đơn giá</th>
-                    <th scope="col">Tổng giá</th>
-                </tr>
-            </thead>
-            <tbody *ngFor="let cartItem of cartItems; let i = index">
-                <tr>
-                    <td>
-                        <div class="product-info">
-                            <img
-                                [src]="cartItem.thumbnail"
-                                alt=""
-                                class="product-img"
-                                >
-                            <span class="product-name"> {{cartItem.name}} </span>
-                        </div>
-                    </td>
-                    <td>{{cartItem.quantity}}</td>
-                    <td>${{cartItem.price}}</td>
-                    <td>${{cartItem.total}}</td>
-                </tr>
-            </tbody>
-        </table>
-        <span class="mt-3">Tổng thanh toán ({{totalItems}} sản phẩm): ${{totalPrice}} </span>
+        <div class="col-md-6">
+            <h2 class="product-header">Thông tin người nhận</h2>
+            <div class="mb-3">
+                <p class="form-label">Họ và tên: {{ orderResponse.full_name }}</p>
+            </div>
+            <!-- Các trường thông tin khác -->
+            <div class="mb-3">
+                <p class="form-label">Email: {{ orderResponse.email }}</p>
+            </div>
+            <div class="mb-3">
+                <p class="form-label">Số điện thoại: {{ orderResponse.phone_number }}</p>
+            </div>
+            <div class="mb-3">
+                <p class="form-label">Địa chỉ: {{ orderResponse.address }}</p>
+            </div>
+            <div class="mb-3">
+                <p class="form-label">Ghi chú: {{ orderResponse.note }}</p>
+            </div>
+            <div class="mb-3">
+                <p class="form-label">Phương thức vận chuyển: {{ orderResponse.shipping_method }}</p>
+            </div>
+            <div class="mb-3">
+                <p class="form-label">Phương thức thanh toán: {{ orderResponse.payment_method }}</p>
+            </div>                        
+        </div>
+
+        <div class="col-md-6">
+            <h2 class="product-order">Sản phẩm đã đặt hàng</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col text-start">Sản phẩm</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Đơn giá</th>
+                        <th scope="col">Tổng giá</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of orderResponse.order_details; let i = index">
+                    <tr>
+                        <td>
+                            <div class="product-info">
+                                <img
+                                    [src]="item.thumbnail"
+                                    alt=""
+                                    class="product-img"
+                                    >
+                                <span class="product-name"> {{item.product_name}} </span>
+                            </div>
+                        </td>
+                        <td>{{item.quantity}}</td>
+                        <td>${{item.price}}</td>
+                        <td>${{item.total_price}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <span class="mt-3">Tổng thanh toán ({{totalItem}} sản phẩm): ${{totalPrice}} </span>
+        </div>
         <div class="text-center mt-3">
             <button class="btn btn-gradient">Tiếp tục mua sắm</button>
         </div>
