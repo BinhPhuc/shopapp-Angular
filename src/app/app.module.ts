@@ -12,7 +12,7 @@ import { OrderConfirmComponent } from './components/order-confirm/order-confirm.
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DetailProductComponent } from './components/detail-product/detail-product.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 //pagination    
@@ -20,6 +20,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
 
 //interceptor
 import { TokenInterceptor } from './interceptor/token.interceptor';
+
+// routing
+import { RouterModule, Routes } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,8 @@ import { TokenInterceptor } from './interceptor/token.interceptor';
     FormsModule,
     HttpClientModule,
     NgxPaginationModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration(),
