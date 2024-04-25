@@ -85,6 +85,13 @@
     padding: 10px 0;
     margin-top: 20px;
     border: none;
+    transition: all 0.3s;
+}
+
+.register-button:hover {
+    background: linear-gradient(to right, rgb(225, 64, 180), rgb(126, 43, 237));
+    color: white;
+    scale: 0.95;
 }
 
 .divider {
