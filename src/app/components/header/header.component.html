@@ -6,25 +6,43 @@
                     <i class="brand-logo fa-brands fa-shopify"></i>
                 </div>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" routerLink="/">Trang chủ</a>
+                        <a class="nav-link" aria-current="page" routerLink="/home"
+                            [ngClass]="isOnHome ? 'active' : ''">Trang chủ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Thông báo</a>
+                        <a class="nav-link" routerLink="/notification"
+                            [ngClass]="isOnNotification ? 'active' : ''">Thông báo</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" routerLink="/order">
+                        <a class="nav-link" routerLink="/order" [ngClass]="isOnOrder ? 'active' : ''">
                             <i class="fa-solid fa-shopping-cart"></i>
                             Giỏ hàng
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/login">
+                    <li class="nav-item profile">
+                        <div class="dropdown" *ngIf="userDetail">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="fa-solid fa-user">
+                                </i>
+                                {{userDetail.full_name}}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-dark ">
+                                <li><a class="dropdown-item" routerLink="/home" (click)="handleOption(1)">Tài khoản của tôi</a></li>
+                                <li><a class="dropdown-item" routerLink="/order" (click)="handleOption(2)">Đơn mua</a></li>
+                                <li><a class="dropdown-item" routerLink="/home" (click)="handleOption(3)">Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                        <a class="nav-link" routerLink="/login" [ngClass]="isOnLogin ? 'active' : ''"
+                            *ngIf="!userDetail">
                             <i class="fa-solid fa-user"></i>
                             Đăng nhập
                         </a>

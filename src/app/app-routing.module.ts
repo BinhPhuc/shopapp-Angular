@@ -8,12 +8,12 @@ import { RegisterComponent } from './components/register/register.component';
 import { DetailProductComponent } from './components/detail-product/detail-product.component';
 
 const routes: Routes = [
-    { path: '', component: HomeComponent },
+    { path: 'home', component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'order', component: OrderComponent },
-    { path: 'order-confirm', component: OrderConfirmComponent },
-    { path: 'product/:categoryName/:productName', component: DetailProductComponent }
+    { path: 'order', component: OrderComponent},
+    { path: 'order-confirm/:orderId', component: OrderConfirmComponent },
+    { path: 'product/:categoryName/:id/:productName', component: DetailProductComponent }
 ];
 
 @NgModule({

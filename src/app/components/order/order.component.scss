@@ -9,7 +9,7 @@
 }
 
 .product-header {
-    color: rgb(233, 66, 176);
+    color: $tint-color;
 }
 
 .form-label {
@@ -20,15 +20,15 @@
 }
 
 .form-control {
-    background-color: rgb(19, 23, 42);
-    border: 1px solid rgb(29, 33, 54);
+    background-color: $background-color;
+    border: 1px solid $background-color;
     color: white;
     padding-left: 15px;
 }
 
 .form-control:focus {
     border-color: white;
-    background-color: rgb(19, 23, 42);
+    background-color: $background-color;
 }
 
 .white-space {
@@ -47,7 +47,7 @@ table {
     border-collapse: separate;
     border: 1px solid white;
     border-spacing: 0;
-    background-color: rgb(12, 13, 54);
+    background-color: $background-color;
 }
 
 th,

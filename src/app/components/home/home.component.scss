@@ -1,3 +1,5 @@
+@import '../../styles/shared-styles.scss';
+
 .intro-section {
     color: white;
     text-align: center;
@@ -18,7 +20,7 @@
 
 .search-input {
     width: 300px;
-    background-color: rgb(19, 23, 42);
+    background-color: $background-color;
     margin-right: 10px;
     border-color: rgba(255, 255, 255, 0.5);
     color: white;
@@ -69,7 +71,7 @@
 }
 
 .product-warranty {
-    color: rgb(242, 162, 212);
+    color: $tint-color;
 }
 
 .product-price {
@@ -129,7 +131,16 @@
 }
 
 select.form-control {
-    background-color: rgb(19, 23, 42);
+    background-color: $background-color;
     color: white;
     border-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-primary {
+    background-color: $primary-color;
+    border-color: $primary-color;
+}
+
+.btn-success {
+    
 }

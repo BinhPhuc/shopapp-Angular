@@ -1,3 +1,5 @@
+@import '../../styles/shared-styles.scss';
+
 .brand-logo {
     color: red;
     font-size: 35px;
@@ -9,11 +11,11 @@
 }
 
 .navbar {
-    background-color: rgba(0, 0, 0, 0) !important;
+    background-color: $background-color !important;
 }
 
 .navbar .container {
-    background-color: rgba(0, 0, 0, 0) !important;
+    background-color: $background-color !important;
 }
 
 .navbar .container .navbar-brand {
@@ -32,10 +34,30 @@
 }
 
 .navbar .container .navbar-nav .nav-link.active {
-    background-color: rgb(127, 68, 255) !important;
+    background-color: $primary-color !important;
     color: white !important;
 }
 
 .navbar .container .navbar-nav .nav-link:hover {
     scale: 0.9
+}
+
+.navbar-collapse {
+    position: relative; 
+}
+
+.nav-item {
+    margin-right: 20px;
+}
+
+.profile {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px; 
+}
+
+.btn-primary {
+    background-color: $primary-color;
+    border-color: $primary-color;
 }

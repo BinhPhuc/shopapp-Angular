@@ -3,12 +3,13 @@ import { Product } from '../../models/product';
 import { ProductService } from '../../services/product.service';
 import { ProductImage } from '../../models/product.image';
 import { CartService } from '../../services/cart.service';
-import { rename } from 'node:fs';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-detail-product',
-  templateUrl: './detail-product.component.html',
-  styleUrl: './detail-product.component.scss'
+    selector: 'app-detail-product',
+    templateUrl: './detail-product.component.html',
+    styleUrl: './detail-product.component.scss'
 })
 export class DetailProductComponent implements OnInit {
     public product: Product;
@@ -18,6 +19,8 @@ export class DetailProductComponent implements OnInit {
     public numberOfProduct: number;
     public totalImage: number;
     constructor(
+        private router: Router,
+        private route: ActivatedRoute,
         private productService: ProductService,
         private cartService: CartService
     ) {
@@ -28,12 +31,15 @@ export class DetailProductComponent implements OnInit {
         this.totalImage = 0;
     }
     ngOnInit() {
-        const product_id = 8;
-        this.productId = product_id;
-        this.productService.getProductById(product_id).subscribe({
+        debugger
+        this.route.params.subscribe((params) => {
+            const product_id: number = +params['id'];
+            this.productId = product_id;
+        })
+        this.productService.getProductById(this.productId).subscribe({
             next: (response: any) => {
                 debugger;
-                if(response) {
+                if (response) {
                     this.product = {
                         id: response.id || 0,
                         name: response.name || "",
@@ -45,7 +51,6 @@ export class DetailProductComponent implements OnInit {
                         url: response.url || "",
                     };
                 }
-                console.log(this.product);
             },
             complete() {
                 console.log(`nuh uh complete`);
@@ -54,10 +59,10 @@ export class DetailProductComponent implements OnInit {
                 console.log(`nuh uh error: ${err}`);
             },
         })
-        this.productService.getImagesByProductId(product_id).subscribe({
+        this.productService.getImagesByProductId(this.productId).subscribe({
             next: (response: any) => {
                 response.forEach((image: ProductImage) => {
-                    if(!image.image_url.startsWith('http://localhost:8088/api/v1/products/images/')) {
+                    if (!image.image_url.startsWith('http://localhost:8088/api/v1/products/images/')) {
                         image.image_url = `http://localhost:8088/api/v1/products/images/${image.image_url}`;
                     }
                 });
@@ -78,18 +83,18 @@ export class DetailProductComponent implements OnInit {
     }
     decreasing() {
         this.numberOfProduct--;
-        if(this.numberOfProduct < 1) {
+        if (this.numberOfProduct < 1) {
             this.numberOfProduct = 1;
         }
     }
     preventNonNumber(event: any) {
-        if(event.keyCode < 48 || event.keyCode > 57) {
+        if (event.keyCode < 48 || event.keyCode > 57) {
             event.preventDefault();
         }
     }
     showImage(index: number) {
         index %= this.totalImage;
-        if(index < 0) {
+        if (index < 0) {
             index = (index + this.totalImage) % this.totalImage;
         }
         this.currentImageIndex = index;
@@ -114,6 +119,6 @@ export class DetailProductComponent implements OnInit {
         console.log("add to cart");
     }
     buyNow() {
-
+        this.router.navigate(['/order']);
     }
 }

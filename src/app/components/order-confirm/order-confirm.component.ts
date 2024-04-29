@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../services/order.service';
 import { OrderResponse } from '../../responses/users/order.response';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-confirm',
@@ -13,7 +14,9 @@ export class OrderConfirmComponent implements OnInit {
     public totalPrice: number;
     public totalItem: number;
     constructor(
-        private orderService: OrderService
+        private orderService: OrderService,
+        private router: Router,
+        private route: ActivatedRoute
     ) {
         this.orderResponse = {
             id: 0,
@@ -33,7 +36,11 @@ export class OrderConfirmComponent implements OnInit {
         this.totalItem = 0;
     }
     ngOnInit() {
-        const orderId = 9;
+        let orderId: number = 0;
+        this.route.params.subscribe((params) => {
+            const order_id: number = +params['orderId'];
+            orderId = order_id;
+        })
         this.orderService.getOrderById(orderId).subscribe({
             next: (response) => {
                 debugger
@@ -84,5 +91,9 @@ export class OrderConfirmComponent implements OnInit {
     getToalPrice() {
         this.totalPrice = this.orderResponse.order_details.reduce((total, item) => total + item.total_price, 0);
         return this.totalPrice;
+    }
+    goShopping() {
+        alert('Thank you for your order!');
+        this.router.navigate(['/home']);
     }
 }

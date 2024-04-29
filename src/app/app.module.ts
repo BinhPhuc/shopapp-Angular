@@ -16,45 +16,48 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 //pagination    
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 //interceptor
 import { TokenInterceptor } from './interceptor/token.interceptor';
 
-// routing
-import { RouterModule, Routes } from '@angular/router';
+import { TokenService } from './services/token.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    FooterComponent,
-    HeaderComponent,
-    OrderComponent,
-    OrderConfirmComponent,
-    LoginComponent,
-    RegisterComponent,
-    DetailProductComponent
-  ],
-  imports: [
-    BrowserModule,
-    NgbModule,
-    FormsModule,
-    HttpClientModule,
-    NgxPaginationModule,
-    AppRoutingModule,
-    ReactiveFormsModule
-  ],
-  providers: [
-    provideClientHydration(),
-    {
-        provide: HTTP_INTERCEPTORS,
-        useClass: TokenInterceptor,
-        multi: true
-    }
-  ],
-  bootstrap: [
-    AppComponent,
-]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        FooterComponent,
+        HeaderComponent,
+        OrderComponent,
+        OrderConfirmComponent,
+        LoginComponent,
+        RegisterComponent,
+        DetailProductComponent
+    ],
+    imports: [
+        BrowserModule,
+        NgbModule,
+        FormsModule,
+        HttpClientModule,
+        NgxPaginationModule,
+        AppRoutingModule,
+        ReactiveFormsModule
+    ],
+    providers: [
+        provideClientHydration(),
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptor,
+            multi: true
+        },
+    ],
+    bootstrap: [
+        AppComponent,
+    ]
 })
-export class AppModule { }
+export class AppModule {
+    constructor(private tokenService: TokenService) {
+
+    }
+}

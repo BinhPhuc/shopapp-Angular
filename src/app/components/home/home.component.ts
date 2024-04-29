@@ -60,12 +60,14 @@ export class HomeComponent implements OnInit {
         this.loadProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
     }
     loadProducts (keyword: string, categoryId: number,page: number, limit: number) {
-        // debugger
+        debugger
         this.productService.getProducts(keyword, categoryId, page, limit)
         .subscribe({
             next: (response: any) => {
+                console.log(response)
                 this.products = response.products.map((item: any) => {
                     return {
+                        id: item.id,
                         name: item.name,
                         price: item.price,
                         thumbnail: item.thumbnail == null ? "404_not_found.png" : item.thumbnail,
@@ -74,6 +76,7 @@ export class HomeComponent implements OnInit {
                         url: `http://localhost:8088/api/v1/products/images/${item.thumbnail}`
                     }
                 })
+                console.log(this.products);
                 this.totalPages = response.totalPages;
             },
             complete() {
@@ -88,8 +91,8 @@ export class HomeComponent implements OnInit {
         this.currentPage = event;
         this.loadProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
     }
-    productClick(productName: string, productCategoryId: number) {
+    productClick(productName: string, productId: number, productCategoryId: number) {
         const categoryName = this.categoryMap.get(productCategoryId);
-        this.router.navigate(['/product', categoryName, productName]);
+        this.router.navigate(['/product', categoryName, productId, productName]);
     }
 }

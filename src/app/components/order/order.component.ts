@@ -5,6 +5,7 @@ import { CartItem } from '../../models/cart.item';
 import { OrderDTO } from '../../dtos/user/order.dto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrderService } from '../../services/order.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order',
@@ -31,6 +32,7 @@ export class OrderComponent implements OnInit {
     };
     public orderForm: FormGroup;
     constructor(
+        private router: Router,
         private cartService: CartService,
         private productService: ProductService,
         private formBuilder: FormBuilder,
@@ -38,21 +40,25 @@ export class OrderComponent implements OnInit {
     ) {
         this.cartItems = [];
         this.orderForm = this.formBuilder.group({
-            name: ['pham phuc binh', [Validators.required]],
-            email: ['phamphucbinh@gmail.com', [Validators.required, Validators.email]],
-            phone: ['0866194010', [ Validators.required ,Validators.minLength(10)]],
-            address: ['ha noi', [Validators.required]],
-            note: ['dễ vỡ, cẩn thận khi vận chuyển'],
+            name: ['', [Validators.required]],
+            email: ['', [Validators.required, Validators.email]],
+            phone: ['', [ Validators.required ,Validators.minLength(10)]],
+            address: ['', [Validators.required]],
+            note: [''],
             shipping_method: ['express'],
             payment_method: ['cod']
         });
     }
     ngOnInit() {
+        debugger
         const cart = this.cartService.getCart();
         const productIds = Array.from(cart.keys());
+        if(productIds.length === 0) {
+            return;
+        }
         this.productService.getAllProductsByIds(productIds).subscribe({
             next: (response: any) => {
-                // debugger
+                debugger
                 this.cartItems = response.map((item: any) => {
                     return {
                         id: item.id || 0,
@@ -67,11 +73,11 @@ export class OrderComponent implements OnInit {
                 this.totalPrice = this.getTotalPrice();
             },
             complete() {
-                // debugger
+                debugger
                 console.log('nuh uh complete');
             },
             error() {
-                // debugger
+                debugger
                 console.log('nuh uh error');
             },
         });
@@ -104,6 +110,9 @@ export class OrderComponent implements OnInit {
             this.orderService.createOrder(this.orderData).subscribe({
                 next: (response: any) => {
                     debugger
+                    console.log(response)
+                    this.cartService.clearCart();
+                    this.router.navigate(['/order-confirm', response.id]);
                     console.log("create order success");
                 },
                 complete() {
@@ -111,6 +120,7 @@ export class OrderComponent implements OnInit {
                     console.log('nuh uh complete');
                 },
                 error: () => {
+                    debugger
                     console.log('Error creating order');
                 }
             });

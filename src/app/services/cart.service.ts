@@ -26,6 +26,11 @@ export class CartService {
         }
         this.saveCartToLocalStorage();
     }
+    clearCart() {
+        debugger
+        this.cart.clear();
+        this.saveCartToLocalStorage();
+    }
     saveCartToLocalStorage() {
         debugger
         this.localStorage?.setItem('cart', JSON.stringify(Array.from(this.cart.entries())));

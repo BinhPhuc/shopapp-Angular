@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { LoginDTO } from '../../dtos/user/login.dto';
-import { HttpClient ,HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { LoginResponse } from '../../responses/users/login.response';
@@ -8,6 +7,7 @@ import { TokenService } from '../../services/token.service';
 import { RoleService } from '../../services/role.service';
 import { Role } from '../../models/role';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserDetailResponse } from '../../responses/users/user.detail.response';
 
 @Component({
   selector: 'app-login',
@@ -19,9 +19,8 @@ export class LoginComponent {
     public phone: string;
     public password: string;
     public visiblePassword: boolean;
-    public rememberMe: boolean;
     public roles: Role[];
-    // public selectedRole: Role | undefined;
+    public userDetail: UserDetailResponse;
     constructor(
         private router: Router,
         private userService: UserService,
@@ -31,7 +30,7 @@ export class LoginComponent {
     ) {
         this.visiblePassword = false;
         this.roles = [];
-        // init reactive form
+
         this.loginForm = this.formBuilder.group({
             phone: ['', Validators.required],
             password: ['', Validators.required],
@@ -74,10 +73,31 @@ export class LoginComponent {
             next: (respone: LoginResponse) => {
                 debugger
                 const token = respone.token;
-                if(this.rememberMe) {
+                if(this.loginForm.get('rememberMe')?.value) {
                     this.tokenService.setToken(token);
+                    this.userService.getUserDetail(token).subscribe({
+                        next: (userResponse: any) => {
+                            debugger
+                            console.log(userResponse)
+                            this.userDetail = {
+                                user_id: userResponse.user_id,
+                                full_name: userResponse.full_name,
+                                phone_number: userResponse.phone_number,
+                                address: userResponse.address
+                            };
+                            this.userService.setUser(this.userDetail);
+                            this.router.navigate(['/home']);
+                        }, 
+                        complete() {
+                            debugger
+                            console.log('Get user detail completed')
+                        },
+                        error() {
+                            debugger
+                            console.log('Get user detail error')
+                        }
+                    })
                 }
-                console.log(respone);
             },
             complete() {
                 debugger
