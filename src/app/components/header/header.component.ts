@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit {
     handleOption(option: number) {
         switch (option) {
             case 1:
-                console.log('case 1')
+                this.router.navigate(['/profile']);
                 break;
             case 2:
                 console.log('case 2')
@@ -48,6 +48,8 @@ export class HeaderComponent implements OnInit {
                 this.userService.logOut();
                 this.tokenService.removeToken();
                 this.userDetail = this.userService.getUserDetailFromLocalStorage();
+                // navigate to somewhere
+                this.router.navigate(['/login']);
                 console.log("log out successfull")
                 break;
             default:

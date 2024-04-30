@@ -21,7 +21,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 //interceptor
 import { TokenInterceptor } from './interceptor/token.interceptor';
 
-import { TokenService } from './services/token.service';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
     declarations: [
@@ -33,7 +33,8 @@ import { TokenService } from './services/token.service';
         OrderConfirmComponent,
         LoginComponent,
         RegisterComponent,
-        DetailProductComponent
+        DetailProductComponent,
+        UserProfileComponent
     ],
     imports: [
         BrowserModule,
@@ -57,7 +58,4 @@ import { TokenService } from './services/token.service';
     ]
 })
 export class AppModule {
-    constructor(private tokenService: TokenService) {
-
-    }
 }

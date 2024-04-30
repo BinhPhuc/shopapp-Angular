@@ -36,9 +36,9 @@
                                 {{userDetail.full_name}}
                             </button>
                             <ul class="dropdown-menu dropdown-menu-dark ">
-                                <li><a class="dropdown-item" routerLink="/home" (click)="handleOption(1)">Tài khoản của tôi</a></li>
-                                <li><a class="dropdown-item" routerLink="/order" (click)="handleOption(2)">Đơn mua</a></li>
-                                <li><a class="dropdown-item" routerLink="/home" (click)="handleOption(3)">Đăng xuất</a></li>
+                                <li><a class="dropdown-item"  (click)="handleOption(1)">Tài khoản của tôi</a></li>
+                                <li><a class="dropdown-item"  (click)="handleOption(2)">Đơn mua</a></li>
+                                <li><a class="dropdown-item" (click)="handleOption(3)">Đăng xuất</a></li>
                             </ul>
                         </div>
                         <a class="nav-link" routerLink="/login" [ngClass]="isOnLogin ? 'active' : ''"

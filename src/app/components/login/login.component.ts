@@ -73,8 +73,8 @@ export class LoginComponent {
             next: (respone: LoginResponse) => {
                 debugger
                 const token = respone.token;
+                this.tokenService.setToken(token);
                 if(this.loginForm.get('rememberMe')?.value) {
-                    this.tokenService.setToken(token);
                     this.userService.getUserDetail(token).subscribe({
                         next: (userResponse: any) => {
                             debugger
@@ -105,7 +105,7 @@ export class LoginComponent {
             },
             error(err: any) {
                 debugger
-                console.error('Login error', err)
+                alert('username or password is incorrect');
             },
         })
     }

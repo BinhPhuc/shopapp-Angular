@@ -1,0 +1,200 @@
+@import '../../styles/shared-styles.scss';
+
+.container {
+    color: white;
+}
+
+.intro-section {
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.product-header {
+    color: $tint-color;
+}
+
+.form-label {
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+
+}
+
+.form-control {
+    background-color: $background-color;
+    border: 1px solid $background-color;
+    color: white;
+    padding-left: 15px;
+}
+
+.form-control:focus {
+    border-color: white;
+    background-color: $background-color;
+}
+
+.white-space {
+    margin: 0 5px;
+}
+
+.form-control::placeholder {
+    color: #fff;
+    opacity: 0.4;
+}
+
+table {
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    border-collapse: separate;
+    border: 1px solid white;
+    border-spacing: 0;
+    background-color: $background-color;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: center;
+}
+
+.product-info {
+    display: flex;
+    align-items: center;
+}
+
+.product-image {
+    width: 100px;
+    height: auto;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.product-name {
+    color: white;
+    margin-right: 10px;
+}
+
+.btn-gradient {
+    background-color: #756AB6;
+    color: white;
+    border-radius: 30px;
+    width: 200px;
+    transition: all 0.5s ease-in-out;
+}
+
+.btn-gradient:hover {
+    scale: 0.9;
+}
+
+.header-text {
+    color: rgb(240, 206, 79);
+}
+
+.container {
+    color: white;
+}
+
+.intro-section {
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.product-header {
+    color: $tint-color;
+}
+
+.form-label {
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+
+}
+
+.form-control {
+    background-color: $background-color;
+    border: 1px solid $background-color;
+    color: white;
+    padding-left: 15px;
+}
+
+.form-control:focus {
+    border-color: white;
+    background-color: $background-color;
+}
+
+.white-space {
+    margin: 0 5px;
+}
+
+.form-control::placeholder {
+    color: #fff;
+    opacity: 0.4;
+}
+
+table {
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    border-collapse: separate;
+    border: 1px solid white;
+    border-spacing: 0;
+    background-color: $background-color;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: center;
+}
+
+.product-info {
+    display: flex;
+    align-items: center;
+}
+
+.product-image {
+    width: 100px;
+    height: auto;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.product-name {
+    color: white;
+    margin-right: 10px;
+}
+
+.btn-gradient {
+    background-color: #756AB6;
+    color: white;
+    border-radius: 30px;
+    width: 200px;
+    transition: all 0.5s ease-in-out;
+}
+
+.btn-gradient:hover {
+    scale: 0.9;
+}
+
+.header-text {
+    color: rgb(240, 206, 79);
+}
+
+.register-button {
+    background: linear-gradient(to right, $tint-color, $primary-color);
+    color: white;
+    border-radius: 30px;
+    width: 100%;
+    padding: 10px 0;
+    margin-top: 20px;
+    border: none;
+    transition: all 0.3s;
+}
+
+.register-button:hover {
+    background: linear-gradient(to right, $tint-color, $primary-color);
+    color: white;
+    scale: 0.95;
+}

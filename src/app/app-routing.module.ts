@@ -6,6 +6,7 @@ import { OrderComponent } from './components/order/order.component';
 import { OrderConfirmComponent } from './components/order-confirm/order-confirm.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DetailProductComponent } from './components/detail-product/detail-product.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -13,7 +14,8 @@ const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'order', component: OrderComponent},
     { path: 'order-confirm/:orderId', component: OrderConfirmComponent },
-    { path: 'product/:categoryName/:id/:productName', component: DetailProductComponent }
+    { path: 'product/:categoryName/:id/:productName', component: DetailProductComponent },
+    { path: 'profile', component: UserProfileComponent}
 ];
 
 @NgModule({

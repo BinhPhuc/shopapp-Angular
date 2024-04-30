@@ -5,6 +5,7 @@ import { RegisterDTO } from '../dtos/user/register.dto';
 import { LoginDTO } from '../dtos/user/login.dto';
 import { DOCUMENT } from '@angular/common';
 import { UserDetailResponse } from '../responses/users/user.detail.response';
+import { UpdatedUserDto } from '../dtos/user/updated.user.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -65,4 +66,12 @@ export class UserService {
     logOut() {
         this.localStorage?.removeItem(this.USER_KEY);
     }
-}
+
+    updateUserDetail(updatedUserDetailData: UpdatedUserDto, userId: number, token:String): Observable<any> {
+        return this.http.put<any>(`${this.apiUserDetail}/`+`${userId}`, updatedUserDetailData, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token,
+            })
+        })
+    }}
