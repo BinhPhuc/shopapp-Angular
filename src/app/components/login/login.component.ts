@@ -83,10 +83,17 @@ export class LoginComponent {
                                 user_id: userResponse.user_id,
                                 full_name: userResponse.full_name,
                                 phone_number: userResponse.phone_number,
-                                address: userResponse.address
+                                address: userResponse.address,
+                                role_id: userResponse.role_id
                             };
                             this.userService.setUser(this.userDetail);
-                            this.router.navigate(['/home']);
+                            if(userResponse.role_id === 1) {
+                                console.log('User');
+                                this.router.navigate(['/home']);
+                            } else {
+                                console.log('Admin');
+                                this.router.navigate(['/admin'])
+                            }
                         }, 
                         complete() {
                             debugger

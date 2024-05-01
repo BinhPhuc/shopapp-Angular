@@ -22,6 +22,17 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { TokenInterceptor } from './interceptor/token.interceptor';
 
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { JwtModule } from '@auth0/angular-jwt';
+
+import { inject } from '@angular/core';
+
+import { TokenService } from './services/token.service';
+
+export function tokenGetter() {
+    const tokenService = inject(TokenService);
+    return tokenService.getToken();
+}
 
 @NgModule({
     declarations: [
@@ -34,7 +45,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
         LoginComponent,
         RegisterComponent,
         DetailProductComponent,
-        UserProfileComponent
+        UserProfileComponent,
+        AdminComponent
     ],
     imports: [
         BrowserModule,
@@ -43,7 +55,12 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
         HttpClientModule,
         NgxPaginationModule,
         AppRoutingModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter
+            }
+        })
     ],
     providers: [
         provideClientHydration(),

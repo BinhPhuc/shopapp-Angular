@@ -60,7 +60,8 @@ export class UserProfileComponent implements OnInit {
                     full_name: response.full_name,
                     user_id: response.user_id,
                     phone_number: response.phone_number,
-                    address: response.address
+                    address: response.address,
+                    role_id: response.role_id || 1
                 }
                 this.userDetailsForm.patchValue({
                     fullName: response.full_name

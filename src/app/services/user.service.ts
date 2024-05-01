@@ -74,4 +74,13 @@ export class UserService {
                 'Authorization': 'Bearer ' + token,
             })
         })
-    }}
+    }
+
+    isAdmin(token: String) {
+        const user = this.getUserDetailFromLocalStorage();
+        if(user) {
+            return user.role_id == 2;
+        }
+        return false;
+    }
+}
