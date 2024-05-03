@@ -39,7 +39,12 @@ export class HeaderComponent implements OnInit {
     handleOption(option: number) {
         switch (option) {
             case 1:
-                this.router.navigate(['/profile']);
+                const roleId = this.userService.getUserDetailFromLocalStorage()?.role_id;
+                if(roleId == 1) {
+                    this.router.navigate(['/profile']);
+                } else {
+                    this.router.navigate(['/admin']);
+                }
                 break;
             case 2:
                 console.log('case 2')

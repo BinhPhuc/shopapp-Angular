@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
         private categoryService: CategoryService,
         private router: Router
     ){
-        this.currentPage = 1;
+        this.currentPage = 0;
         this.itemsPerPage = 10;
         this.products = [];
         this.totalPages = 0;
@@ -34,7 +34,6 @@ export class HomeComponent implements OnInit {
     }
     ngOnInit() {
         // debugger
-        console.log("home component initialized");
         this.categoryService.getCategories().subscribe({
             next: (response: any) => {
                 this.categories = response.map((item: any) => {
@@ -55,7 +54,7 @@ export class HomeComponent implements OnInit {
         this.loadProducts(this.keyword, this.selectedCategoryId ,this.currentPage, this.itemsPerPage);
     }
     searchProducts() {
-        this.currentPage = 1;
+        this.currentPage = 0;
         this.itemsPerPage = 10;
         this.loadProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
     }

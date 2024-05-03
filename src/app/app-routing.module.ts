@@ -11,6 +11,7 @@ import { AdminComponent } from './components/admin/admin.component';
 
 import { authGuard } from './auth/auth.guard';
 import { adminGuard } from './auth/admin.guard';
+import { OrderAdminComponent } from './components/admin/orders/order.admin.component';
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -20,7 +21,8 @@ const routes: Routes = [
     { path: 'order-confirm/:orderId', component: OrderConfirmComponent },
     { path: 'product/:categoryName/:id/:productName', component: DetailProductComponent },
     { path: 'profile', component: UserProfileComponent, canActivate: [authGuard] },
-    {path: 'admin', component: AdminComponent, canActivate: [adminGuard]}
+    {path: 'admin', component: AdminComponent, canActivate: [adminGuard]},
+    {path: 'admin/orders', component: OrderAdminComponent, canActivate: [adminGuard]}
 ];
 
 @NgModule({

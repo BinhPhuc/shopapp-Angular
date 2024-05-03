@@ -13,7 +13,7 @@ import { inject } from '@angular/core';
     ],
 })
 export class AdminComponent implements OnInit {
-    //adminComponent: string = 'orders';
+    adminComponent: string = 'orders';
     UserDetailResponse?: UserDetailResponse | null;
     private userService = inject(UserService);
     private tokenService = inject(TokenService);
@@ -21,11 +21,6 @@ export class AdminComponent implements OnInit {
 
     ngOnInit() {
         this.UserDetailResponse = this.userService.getUserDetailFromLocalStorage();
-        // Default router
-        debugger
-        if (this.router.url === '/admin') {
-            this.router.navigate(['/admin/orders']);
-        }
     }
     logout() {
         this.userService.logOut();
@@ -35,14 +30,6 @@ export class AdminComponent implements OnInit {
     }
     showAdminComponent(componentName: string): void {
         debugger
-        if (componentName === 'orders') {
-            this.router.navigate(['/admin/orders']);
-        } else if (componentName === 'categories') {
-            this.router.navigate(['/admin/categories']);
-        } else if (componentName === 'products') {
-            this.router.navigate(['/admin/products']);
-        } else if (componentName === 'users') {
-            this.router.navigate(['/admin/users']);
-        }
+        this.adminComponent = componentName;
     }
 }

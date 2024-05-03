@@ -28,6 +28,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { inject } from '@angular/core';
 
 import { TokenService } from './services/token.service';
+import { OrderAdminComponent } from './components/admin/orders/order.admin.component';
 
 export function tokenGetter() {
     const tokenService = inject(TokenService);
@@ -46,7 +47,8 @@ export function tokenGetter() {
         RegisterComponent,
         DetailProductComponent,
         UserProfileComponent,
-        AdminComponent
+        AdminComponent,
+        OrderAdminComponent
     ],
     imports: [
         BrowserModule,
